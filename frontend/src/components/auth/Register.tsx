@@ -15,14 +15,14 @@ const Register = () => {
 	return (
 		<TabsContent value='register'>
 			<Card>
-				<CardHeader className='pb-3'>
-					<CardTitle>Register</CardTitle>
-					<CardDescription>
-						Please register your account here.
-					</CardDescription>
-				</CardHeader>
-				<CardContent className='space-y-2 px-6'>
-					<form action=''>
+				<form action=''>
+					<CardHeader className='pb-3'>
+						<CardTitle>Register</CardTitle>
+						<CardDescription>
+							Please register your account here.
+						</CardDescription>
+					</CardHeader>
+					<CardContent className='space-y-2 px-6'>
 						<div className='space-y-1'>
 							<Label htmlFor='name'>Name</Label>
 							<Input id='name' defaultValue='name' />
@@ -49,11 +49,11 @@ const Register = () => {
 								placeholder='******'
 							/>
 						</div>
-					</form>
-				</CardContent>
-				<CardFooter>
-					<Button>Save changes</Button>
-				</CardFooter>
+					</CardContent>
+					<CardFooter>
+						<Button>Register</Button>
+					</CardFooter>
+				</form>
 			</Card>
 		</TabsContent>
 	)
