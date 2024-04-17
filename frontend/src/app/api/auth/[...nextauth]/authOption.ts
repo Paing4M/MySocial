@@ -1,4 +1,6 @@
+import axiosInstance from '@/lib/axiosInstance'
 import { AuthOptions, ISODateString } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 export interface CustomSession {
@@ -19,7 +21,30 @@ export interface CustomUser {
 
 export const authOption: AuthOptions = {
 	pages: {
-		signIn: 'auth',
+		signIn: '/auth',
+	},
+
+	callbacks: {
+		async jwt({ token, user, trigger, session }) {
+			if (user) {
+				token.user = user
+			}
+
+			return token
+		},
+
+		async session({
+			session,
+			user,
+			token,
+		}: {
+			session: CustomSession
+			user: CustomUser
+			token: JWT
+		}) {
+			session.user = token.user as CustomUser
+			return session
+		},
 	},
 
 	providers: [
@@ -29,7 +54,14 @@ export const authOption: AuthOptions = {
 				email: {},
 				password: {},
 			},
-			async authorize(credentials, req) {},
+			async authorize(credentials, req) {
+				const res = await axiosInstance.post('/login', credentials)
+				if (res?.data?.data) {
+					return res?.data?.data
+				} else {
+					return null
+				}
+			},
 		}),
 	],
 }
