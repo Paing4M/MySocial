@@ -1,17 +1,12 @@
 import Image from 'next/image'
-import { AlignJustify, LogOut, Search, UserRound } from 'lucide-react'
+import { LogOut, Search } from 'lucide-react'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import UserAvatar from '../user/UserAvatar'
-import { Button } from '../ui/button'
-import Link from 'next/link'
-import MobileMenu from './MobileMenu'
 import { CustomUser } from '@/app/api/auth/[...nextauth]/authOption'
 
 const Navbar = ({ user }: { user: CustomUser }) => {
@@ -47,11 +42,6 @@ const Navbar = ({ user }: { user: CustomUser }) => {
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</div>
-
-				{/* menu */}
-				{/* <div className='block md:hidden'>
-					<MobileMenu user={user}/>
-				</div> */}
 			</nav>
 		</div>
 	)

@@ -5,10 +5,12 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
+import { useActivePath } from '@/hooks/checkActivePath'
 
 const MobileNav = () => {
 	const [open, setOpen] = useState(false)
 	const [searchTerm, setSearchTerm] = useState('')
+	const activePath = useActivePath()
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -32,25 +34,53 @@ const MobileNav = () => {
 				<nav className='p-4 h-[60px] flex items-center justify-center  mx-auto border-t shadow-sm'>
 					<ul className='flex items-center justify-between w-full'>
 						<li>
-							<Link href='/' className='px-2'>
+							<Link
+								href='/'
+								className={`px-2 ${
+									activePath('/')
+										? 'text-black'
+										: 'text-muted-foreground'
+								}`}
+							>
 								<Home />
 							</Link>
 						</li>
 
 						<li>
-							<div onClick={() => setOpen(true)} className='px-2'>
+							<div
+								onClick={() => setOpen(true)}
+								className={`px-2 cursor-pointer ${
+									activePath('/search')
+										? 'text-black'
+										: 'text-muted-foreground'
+								}`}
+							>
 								<Search />
 							</div>
 						</li>
 
 						<li>
-							<Link href={'/'} className='px-2'>
+							<Link
+								href={'/notifications'}
+								className={`px-2 ${
+									activePath('/notifications')
+										? 'text-black'
+										: 'text-muted-foreground'
+								}`}
+							>
 								<Bell />
 							</Link>
 						</li>
 
 						<li>
-							<Link href='/' className='px-2'>
+							<Link
+								href='/profile'
+								className={`px-2 ${
+									activePath('/profile')
+										? 'text-black'
+										: 'text-muted-foreground'
+								}`}
+							>
 								<UserRound />
 							</Link>
 						</li>

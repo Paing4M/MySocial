@@ -1,0 +1,64 @@
+'use client'
+
+import { CustomUser } from '@/app/api/auth/[...nextauth]/authOption'
+import UserAvatar from './UserAvatar'
+import { Bell, Home, UserRound } from 'lucide-react'
+import Link from 'next/link'
+import { useActivePath } from '@/hooks/checkActivePath'
+
+const UserSidebar = ({ user }: { user: CustomUser }) => {
+	const activePath = useActivePath()
+
+	const links = [
+		{
+			name: 'Home',
+			icon: <Home />,
+			link: '/',
+		},
+		{
+			name: 'Profile',
+			icon: <UserRound />,
+			link: '/profile',
+		},
+		{
+			name: 'Notifications',
+			icon: <Bell />,
+			link: '/notifications',
+		},
+	]
+
+	return (
+		<div className='p-4 hidden md:block rounded-lg border shadow-sm bg-white w-[280px]'>
+			<div className='flex items-center gap-2 '>
+				<UserAvatar user={user} />
+				<span>{user?.name}</span>
+			</div>
+			<div className='pt-6'>
+				<ul>
+					{links.map((item) => (
+						<li>
+							<Link
+								href={item.link}
+								className={`flex gap-2 py-4  ${
+									links.length === links.indexOf(item) + 1
+										? ''
+										: 'border-b'
+								}
+                ${
+							activePath(item.link)
+								? 'text-black'
+								: 'text-muted-foreground'
+						}`}
+							>
+								{item.icon}
+								<span>{item.name}</span>
+							</Link>
+						</li>
+					))}
+				</ul>
+			</div>
+		</div>
+	)
+}
+
+export default UserSidebar
