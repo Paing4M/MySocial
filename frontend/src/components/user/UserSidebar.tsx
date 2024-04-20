@@ -29,9 +29,14 @@ const UserSidebar = ({ user }: { user: CustomUser }) => {
 
 	return (
 		<div className='p-4 hidden md:block rounded-lg border shadow-sm bg-white w-[280px]'>
-			<div className='flex items-center gap-2 '>
+			<div className='flex items-center gap-3'>
 				<UserAvatar user={user} />
-				<span>{user?.name}</span>
+				<div className='flex flex-col'>
+					<span className='font-bold'>{user?.name}</span>
+					<span className=' text-sm text-muted-foreground leading-tight'>
+						abcdefg
+					</span>
+				</div>
 			</div>
 			<div className='pt-6'>
 				<ul>
