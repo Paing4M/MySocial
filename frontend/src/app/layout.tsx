@@ -40,8 +40,6 @@ export default function RootLayout({
 					theme='light'
 					transition={Bounce}
 				/>
-
-				<ToastContainer />
 			</body>
 		</html>
 	)

@@ -1,13 +1,24 @@
 'use client'
 
 import { CustomUser } from '@/app/api/auth/[...nextauth]/authOption'
-import UserAvatar from './UserAvatar'
-import { Image } from 'lucide-react'
+import UserAvatar from '../user/UserAvatar'
+import { Image as ImageIcon } from 'lucide-react'
 import { Button } from '../ui/button'
+import { useState } from 'react'
+import Image from 'next/image'
 
 const AddPostCard = ({ user }: { user: CustomUser }) => {
+	const [image, setImage] = useState<File | null>(null)
+
+	const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0]
+		if (file) setImage(file)
+	}
+
+	console.log(typeof image)
+
 	return (
-		<div className='bg-white shadow-sm rounded-lg border p-4'>
+		<div className='bg-white shadow-md rounded-lg border p-4'>
 			<form action=''>
 				<div className='flex items-start space-x-4'>
 					<UserAvatar user={user} />
@@ -25,10 +36,15 @@ const AddPostCard = ({ user }: { user: CustomUser }) => {
 									htmlFor='image'
 									className='flex space-x-3 cursor-pointer px-2 items-center'
 								>
-									<Image />
+									<ImageIcon />
 									<span>Add Media</span>
 								</label>
-								<input type='file' hidden id='image' />
+								<input
+									onChange={handleImage}
+									type='file'
+									hidden
+									id='image'
+								/>
 							</div>
 
 							<Button
@@ -41,6 +57,18 @@ const AddPostCard = ({ user }: { user: CustomUser }) => {
 						</div>
 					</div>
 				</div>
+
+				{image && (
+					<div className='mt-3'>
+						<Image
+							src={image ? URL.createObjectURL(image) : ''}
+							width={400}
+							height={400}
+							alt='image'
+							className='w-full object-cover rounded-lg '
+						/>
+					</div>
+				)}
 			</form>
 		</div>
 	)

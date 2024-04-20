@@ -31,7 +31,7 @@ const MobileNav = () => {
 					</div>
 				</div>
 			) : (
-				<nav className='p-4 h-[60px] flex items-center justify-center  mx-auto border-t shadow-sm'>
+				<nav className='p-4 h-[60px] flex items-center justify-center  mx-auto border-t shadow-md'>
 					<ul className='flex items-center justify-between w-full'>
 						<li>
 							<Link

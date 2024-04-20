@@ -72,7 +72,12 @@
 	* {
 		@apply border-border scrollbar-hide;
 	}
+
 	body {
 		@apply bg-background text-foreground;
+	}
+
+	span {
+		@apply leading-tight;
 	}
 }

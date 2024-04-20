@@ -28,11 +28,11 @@ const UserSidebar = ({ user }: { user: CustomUser }) => {
 	]
 
 	return (
-		<div className='p-4 hidden md:block rounded-lg border shadow-sm bg-white w-[280px]'>
+		<div className='p-4 hidden md:block rounded-lg border shadow-md bg-white w-[280px]'>
 			<div className='flex items-center gap-3'>
 				<UserAvatar user={user} />
 				<div className='flex flex-col'>
-					<span className='font-bold'>{user?.name}</span>
+					<span className='font-bold text-lg'>{user?.name}</span>
 					<span className=' text-sm text-muted-foreground leading-tight'>
 						abcdefg
 					</span>
@@ -41,7 +41,7 @@ const UserSidebar = ({ user }: { user: CustomUser }) => {
 			<div className='pt-6'>
 				<ul>
 					{links.map((item) => (
-						<li>
+						<li key={item.name}>
 							<Link
 								href={item.link}
 								className={`flex gap-2 py-4  ${

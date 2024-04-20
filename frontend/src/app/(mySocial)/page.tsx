@@ -4,7 +4,8 @@ import {
 	CustomUser,
 	authOption,
 } from '../api/auth/[...nextauth]/authOption'
-import AddPostCard from '@/components/user/AddPostCard'
+import AddPostCard from '@/components/post/AddPostCard'
+import PostContainer from '@/components/post/PostContainer'
 
 export default async function Home() {
 	const session: CustomSession = (await getServerSession(
@@ -13,8 +14,9 @@ export default async function Home() {
 	const user: CustomUser = session.user as CustomUser
 
 	return (
-		<div className='w-full '>
+		<div className='w-full'>
 			<AddPostCard user={user} />
+			<PostContainer />
 		</div>
 	)
 }
