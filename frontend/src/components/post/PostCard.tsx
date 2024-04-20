@@ -1,16 +1,31 @@
+'use client'
+
 import { Ellipsis, MessageCircle, ThumbsUp } from 'lucide-react'
 import UserAvatar from '../user/UserAvatar'
 import AddCommentBox from '../comment/AddCommentBox'
 import CommentContainer from '../comment/CommentContainer'
 import Link from 'next/link'
+import { useState } from 'react'
 
 const PostCard = () => {
+	const [isTruncated, setIsTruncated] = useState(true)
+
+	const toggleTruncation = () => {
+		setIsTruncated(!isTruncated)
+	}
+
+	let t = `Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+					Aspernatur, impedit? Eaque voluptate officia debitis quo
+					accusamus expedita mollitia optio consectetur exercitationem
+					consequatur soluta magni perspiciatis, libero at! Omnis,
+					voluptate! Cumque fugiat aliquid, unde aut nobis dolorem ea error
+					molestias quidem.`
+
+	const displayedText = isTruncated ? `${t.slice(0, 200)} ...` : t
+
 	return (
 		<div className='bg-white border rounded-lg shadow-md mb-8 last-of-type:mb-0'>
-			<Link
-				href='/post/123'
-				className='flex items-center justify-between p-4'
-			>
+			<div className='flex items-center justify-between p-4'>
 				<div className='flex items-center gap-3'>
 					<UserAvatar
 						user={{
@@ -34,18 +49,21 @@ const PostCard = () => {
 						</span>
 					</div>
 				</div>
-			</Link>
+			</div>
 
 			<hr className='my-2' />
 
 			<div className='p-4'>
 				<p>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-					Aspernatur, impedit? Eaque voluptate officia debitis quo
-					accusamus expedita mollitia optio consectetur exercitationem
-					consequatur soluta magni perspiciatis, libero at! Omnis,
-					voluptate! Cumque fugiat aliquid, unde aut nobis dolorem ea error
-					molestias quidem.
+					{displayedText}{' '}
+					{t.length > 200 && (
+						<span
+							onClick={toggleTruncation}
+							className='inline-block ml-1 cursor-pointer text-sm text-[#6174D9]'
+						>
+							{isTruncated ? 'Read more' : 'Read less'}
+						</span>
+					)}
 				</p>
 			</div>
 

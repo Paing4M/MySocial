@@ -2,7 +2,7 @@ import UserAvatar from '../user/UserAvatar'
 
 const CommentCard = () => {
 	return (
-		<div className='bg-[#F1F4F9] p-4 rounded-lg'>
+		<div className='bg-[#F1F4F9] p-4 rounded-lg mb-3 last-of-type:mb-0'>
 			<div className='flex items-center justify-between'>
 				<div className='flex items-center gap-3'>
 					<UserAvatar user={{ name: 'haha' }} />
