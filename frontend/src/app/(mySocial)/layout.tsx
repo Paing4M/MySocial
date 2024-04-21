@@ -30,7 +30,7 @@ export default async function MySocialLayout({
 		<div>
 			<Navbar user={user!} />
 
-			<div className='max-w-[1300px] h-[calc(100vh-128px)] md:h-auto overflow-y-scroll p-4 mx-auto flex items-start gap-8'>
+			<div className='max-w-[1300px] h-[calc(100vh-128px)] md:h-auto overflow-y-scroll p-6 mx-auto flex items-start gap-8'>
 				<UserSidebar user={user} />
 				<div className='flex-1'>{children}</div>
 			</div>

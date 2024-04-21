@@ -18,7 +18,7 @@ const AddPostCard = ({ user }: { user: CustomUser }) => {
 	console.log(typeof image)
 
 	return (
-		<div className='bg-white shadow-md rounded-lg border p-4'>
+		<div className='bg-white shadow-md rounded-lg border p-6'>
 			<form action=''>
 				<div className='flex items-start space-x-4'>
 					<UserAvatar user={user} />

@@ -25,7 +25,7 @@ const PostCard = () => {
 
 	return (
 		<div className='bg-white border rounded-lg shadow-md mb-8 last-of-type:mb-0'>
-			<div className='flex items-center justify-between p-4'>
+			<div className='flex items-center justify-between p-6'>
 				<div className='flex items-center gap-3'>
 					<UserAvatar
 						user={{
@@ -53,7 +53,7 @@ const PostCard = () => {
 
 			<hr className='my-2' />
 
-			<div className='p-4'>
+			<div className='p-6'>
 				<p>
 					{displayedText}{' '}
 					{t.length > 200 && (
@@ -68,7 +68,7 @@ const PostCard = () => {
 			</div>
 
 			{/*  */}
-			<div className='p-4 flex items-center justify-between'>
+			<div className='p-6 flex items-center justify-between'>
 				<div className='flex items-end gap-2 '>
 					<ThumbsUp className='text-[#4C68D5] cursor-pointer' />
 					<span className='text-sm '>100 likes</span>
@@ -81,7 +81,7 @@ const PostCard = () => {
 			</div>
 
 			{/* comments */}
-			<div className='mt-3 p-4'>
+			<div className='mt-3 p-6'>
 				<AddCommentBox user={{ name: 'abc3f' }} />
 				<CommentContainer />
 			</div>

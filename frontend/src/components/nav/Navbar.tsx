@@ -11,8 +11,8 @@ import { CustomUser } from '@/app/api/auth/[...nextauth]/authOption'
 
 const Navbar = ({ user }: { user: CustomUser }) => {
 	return (
-		<div className=' bg-white border-b shadow-sm'>
-			<nav className='p-4 h-[60px] max-w-[1300px] flex items-center justify-between mx-auto'>
+		<div className=' bg-white border-b shadow-md'>
+			<nav className='p-6 h-[60px] max-w-[1300px] flex items-center justify-between mx-auto'>
 				<Image
 					src={'/mySocial.png'}
 					width={50}

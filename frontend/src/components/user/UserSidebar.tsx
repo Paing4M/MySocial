@@ -28,7 +28,7 @@ const UserSidebar = ({ user }: { user: CustomUser }) => {
 	]
 
 	return (
-		<div className='p-4 hidden md:block rounded-lg border shadow-md bg-white w-[280px]'>
+		<div className='p-6 hidden md:block rounded-lg border shadow-md bg-white w-[280px]'>
 			<div className='flex items-center gap-3'>
 				<UserAvatar user={user} />
 				<div className='flex flex-col'>
@@ -44,7 +44,7 @@ const UserSidebar = ({ user }: { user: CustomUser }) => {
 						<li key={item.name}>
 							<Link
 								href={item.link}
-								className={`flex gap-2 py-4  ${
+								className={`flex items-center gap-2 py-4  ${
 									links.length === links.indexOf(item) + 1
 										? ''
 										: 'border-b'

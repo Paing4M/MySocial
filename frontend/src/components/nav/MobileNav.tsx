@@ -20,7 +20,7 @@ const MobileNav = () => {
 		<div className='block md:hidden'>
 			{open ? (
 				<div className='absolute top-0 left-0 w-full h-screen bg-white '>
-					<div className='p-4'>
+					<div className='p-6'>
 						<form
 							onSubmit={handleSubmit}
 							className='flex w-full  items-center space-x-2'
@@ -31,7 +31,7 @@ const MobileNav = () => {
 					</div>
 				</div>
 			) : (
-				<nav className='p-4 h-[60px] flex items-center justify-center  mx-auto border-t shadow-md'>
+				<nav className='p-6 h-[60px] flex items-center justify-center  mx-auto border-t shadow-md'>
 					<ul className='flex items-center justify-between w-full'>
 						<li>
 							<Link
