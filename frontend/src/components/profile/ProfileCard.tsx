@@ -21,7 +21,7 @@ const ProfileCard = ({ tabIndex, setTabIndex }: TabInterface) => {
 					</div>
 				</div>
 
-				<div>
+				<div className='flex flex-col items-center'>
 					<p className='text-2xl font-bold leading-tight'>30</p>
 					<span className='text-muted-foreground text-sm'>posts</span>
 				</div>
@@ -30,12 +30,12 @@ const ProfileCard = ({ tabIndex, setTabIndex }: TabInterface) => {
 			<hr />
 
 			<div className='p-6'>
-				<ul className='flex items-center space-x-6'>
+				<ul className='flex items-center space-x-4'>
 					{tabs.map((tab, idx) => (
 						<li key={tab + idx}>
 							<p
 								onClick={(e) => setTabIndex(idx)}
-								className={`py-1 px-2 text-lg cursor-pointer capitalize select-none ${
+								className={`py-1 px-2 text-[16px] cursor-pointer capitalize select-none ${
 									tabIndex == idx
 										? 'text-black'
 										: 'text-muted-foreground'

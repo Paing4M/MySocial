@@ -1,13 +1,20 @@
 'use client'
 
-import { Ellipsis, MessageCircle, ThumbsUp } from 'lucide-react'
+import { Ellipsis, MessageCircle, Pencil, ThumbsUp, Trash } from 'lucide-react'
 import UserAvatar from '../user/UserAvatar'
 import AddCommentBox from '../comment/AddCommentBox'
 import CommentContainer from '../comment/CommentContainer'
-import Link from 'next/link'
 import { useState } from 'react'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
-const PostCard = () => {
+const PostCard = ({}) => {
 	const [isTruncated, setIsTruncated] = useState(true)
 
 	const toggleTruncation = () => {
@@ -43,7 +50,23 @@ const PostCard = () => {
 
 				<div>
 					<div className='flex flex-col items-end'>
-						<Ellipsis />
+						<DropdownMenu>
+							<DropdownMenuTrigger>
+								{' '}
+								<Ellipsis />
+							</DropdownMenuTrigger>
+							<DropdownMenuContent>
+								<DropdownMenuItem>
+									<Pencil className='mr-2 h-4 w-4' />
+									<span>Edit</span>
+								</DropdownMenuItem>
+								<DropdownMenuItem>
+									<Trash className='mr-2 h-4 w-4' />
+									<span>Delete</span>
+								</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
+
 						<span className='text-sm text-muted-foreground leading-tight'>
 							2 days ago
 						</span>
