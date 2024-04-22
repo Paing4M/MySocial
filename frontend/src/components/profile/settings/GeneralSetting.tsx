@@ -10,6 +10,7 @@ import { updateProfile } from '@/services/userService'
 import { toast } from 'react-toastify'
 import { useSession } from 'next-auth/react'
 import { useCurrentUser } from '@/hooks/currentUser'
+import Error from '@/components/common/Error'
 
 const GeneralSetting = () => {
 	const [inputState, setInputState] = useState({
@@ -18,6 +19,10 @@ const GeneralSetting = () => {
 	})
 	const [image, setImage] = useState<File | null>()
 	const [loading, setLoading] = useState(false)
+	const [errors, setErrors] = useState({
+		profile_img: '',
+		bio: '',
+	})
 	const { update } = useSession()
 	const user = useCurrentUser()
 
@@ -44,9 +49,13 @@ const GeneralSetting = () => {
 			}
 
 			const res = await updateProfile(data)
-			console.log(res)
+			// console.log(res)
 			if (res?.status == 200) {
 				setLoading(false)
+				setErrors({
+					profile_img: '',
+					bio: '',
+				})
 				toast.success(res?.message)
 				update({
 					name: res?.user?.name,
@@ -60,10 +69,14 @@ const GeneralSetting = () => {
 			}
 		} catch (err: any) {
 			// console.log(err)
-			toast.error(err?.response?.data?.message)
+			if (err?.response?.status == 422) {
+				setErrors(err?.response?.data?.errors)
+			}
 			setLoading(false)
 		}
 	}
+
+	console.log(errors)
 
 	return (
 		<div>
@@ -80,36 +93,46 @@ const GeneralSetting = () => {
 								onChange={handleImg}
 								id='image'
 								type='file'
+								accept='image/png,image/svg,image/jpg,image/jpeg,image/gif,image/webp'
 								hidden
 							/>
 						</label>
+
+						{image && (
+							<div className='mt-2'>
+								<Image
+									src={URL.createObjectURL(image)}
+									width={400}
+									height={300}
+									className='w-full h-[300px] object-cover'
+									alt='profile-img'
+								/>
+							</div>
+						)}
+
+						{errors?.profile_img && (
+							<Error err={errors?.profile_img?.[0]} />
+						)}
 					</div>
 
-					{image && (
-						<div>
-							<Image
-								src={URL.createObjectURL(image)}
-								width={400}
-								height={300}
-								className='w-full h-[300px] object-cover'
-								alt='profile-img'
-							/>
-						</div>
-					)}
+					<div>
+						<Input
+							defaultValue={user?.name!}
+							name='name'
+							onChange={handleChange}
+							placeholder='name'
+						/>
+					</div>
 
-					<Input
-						defaultValue={user?.name!}
-						name='name'
-						onChange={handleChange}
-						placeholder='name'
-					/>
-
-					<Textarea
-						defaultValue={user?.bio!}
-						name='bio'
-						onChange={handleChange}
-						placeholder='Bio'
-					/>
+					<div>
+						<Textarea
+							defaultValue={user?.bio!}
+							name='bio'
+							onChange={handleChange}
+							placeholder='Bio (Web Developer)'
+						/>
+						{errors?.bio && <Error err={errors?.bio?.[0]} />}
+					</div>
 
 					<div>
 						<Button disabled={loading} className='px-8' type='submit'>

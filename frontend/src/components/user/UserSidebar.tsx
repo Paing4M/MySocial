@@ -35,7 +35,7 @@ const UserSidebar = () => {
 				<UserAvatar user={user} />
 				<div className='flex flex-col'>
 					<span className='font-bold text-lg'>{user?.name}</span>
-					<span className=' text-sm text-muted-foreground leading-tight'>
+					<span className='capitalize text-sm text-muted-foreground leading-tight'>
 						{user?.bio}
 					</span>
 				</div>

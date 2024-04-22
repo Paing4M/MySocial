@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\v1\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller {
-  public function updateProfile(Request $request) {
+  public function updateProfile(ProfileUpdateRequest $request) {
     $payload = $request->only(['name', 'profile_img', 'bio']);
-    $validator = Validator::validate($payload, [
-      'bio' => 'max:100',
-      'profile_img' => 'image|mimes:png,svg,jpg,jpeg,gif,webp|max:2048'
-    ]);
+
 
     $user = User::where('id', $request->user('sanctum')->id)->first();
 

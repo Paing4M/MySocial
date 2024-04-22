@@ -17,7 +17,7 @@ const ProfileCard = ({ tabIndex, setTabIndex, user }: TabInterface) => {
 					<UserAvatar size={'lg'} user={user} />
 					<div className='flex flex-col'>
 						<span className='font-bold text-lg'>{user?.name}</span>
-						<span className='text-muted-foreground text-sm'>
+						<span className='text-muted-foreground text-sm capitalize'>
 							{user?.bio}
 						</span>
 					</div>

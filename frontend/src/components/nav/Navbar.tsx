@@ -9,11 +9,16 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import UserAvatar from '../user/UserAvatar'
-import { CustomUser } from '@/app/api/auth/[...nextauth]/authOption'
 import { useCurrentUser } from '@/hooks/currentUser'
+import { logout } from '@/services/authService'
 
 const Navbar = () => {
 	const user = useCurrentUser()
+
+	const handleLogout = async () => {
+		const res = await logout()
+		console.log(res)
+	}
 
 	return (
 		<div className=' bg-white border-b shadow-md'>
@@ -40,7 +45,7 @@ const Navbar = () => {
 							<UserAvatar user={user} />
 						</DropdownMenuTrigger>
 						<DropdownMenuContent>
-							<DropdownMenuItem>
+							<DropdownMenuItem onClick={handleLogout}>
 								<LogOut className='mr-2 h-4 w-4' />
 								<span>Log out</span>
 							</DropdownMenuItem>
