@@ -12,7 +12,8 @@ export interface CustomUser {
 	id?: string | null
 	name?: string | null
 	email?: string | null
-	profile_image?: string | null
+	bio?: string | null
+	profile_img?: string | null
 	email_verified_at?: string | null
 	created_at?: string | null
 	updated_at?: string | null
@@ -26,6 +27,21 @@ export const authOption: AuthOptions = {
 
 	callbacks: {
 		async jwt({ token, user, trigger, session }) {
+			if (trigger === 'update' && session?.profile_img) {
+				const user: CustomUser = token.user as CustomUser
+				user.profile_img = session.profile_img
+			}
+
+			if (trigger === 'update' && session?.bio) {
+				const user: CustomUser = token.user as CustomUser
+				user.bio = session.bio
+			}
+
+			if (trigger === 'update' && session?.name) {
+				const user: CustomUser = token.user as CustomUser
+				user.name = session.name
+			}
+
 			if (user) {
 				token.user = user
 			}

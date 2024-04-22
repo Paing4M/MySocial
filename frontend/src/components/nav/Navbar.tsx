@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { LogOut, Search } from 'lucide-react'
 import {
@@ -8,8 +10,11 @@ import {
 } from '@/components/ui/dropdown-menu'
 import UserAvatar from '../user/UserAvatar'
 import { CustomUser } from '@/app/api/auth/[...nextauth]/authOption'
+import { useCurrentUser } from '@/hooks/currentUser'
 
-const Navbar = ({ user }: { user: CustomUser }) => {
+const Navbar = () => {
+	const user = useCurrentUser()
+
 	return (
 		<div className=' bg-white border-b shadow-md'>
 			<nav className='p-6 h-[60px] max-w-[1300px] flex items-center justify-between mx-auto'>

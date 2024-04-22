@@ -18,7 +18,16 @@ const UserAvatar = ({
 					: ''
 			}`}
 		>
-			<AvatarImage src={user?.profile_image!} />
+			<AvatarImage
+				className='object-cover'
+				src={
+					user?.profile_img
+						? process.env.NEXT_PUBLIC_API_URL +
+						  '/storage/' +
+						  user?.profile_img
+						: ''
+				}
+			/>
 			<AvatarFallback className='bg-[#C3C5F1]'>
 				{user?.name?.slice(0, 3)}
 			</AvatarFallback>

@@ -4,6 +4,7 @@ import './globals.css'
 
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import AuthProvider from '@/provider/AuthProvider'
 
 const roboto = Roboto({
 	subsets: ['latin'],
@@ -26,7 +27,7 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={roboto.className + ' bg-bgColor'}>
-				{children}
+				<AuthProvider>{children}</AuthProvider>
 				<ToastContainer
 					// className={'z-[1000]'}
 					position='top-right'

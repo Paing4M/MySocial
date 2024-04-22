@@ -5,9 +5,11 @@ import UserAvatar from './UserAvatar'
 import { Bell, Home, UserRound } from 'lucide-react'
 import Link from 'next/link'
 import { useActivePath } from '@/hooks/checkActivePath'
+import { useCurrentUser } from '@/hooks/currentUser'
 
-const UserSidebar = ({ user }: { user: CustomUser }) => {
+const UserSidebar = () => {
 	const activePath = useActivePath()
+	const user = useCurrentUser()
 
 	const links = [
 		{
@@ -34,7 +36,7 @@ const UserSidebar = ({ user }: { user: CustomUser }) => {
 				<div className='flex flex-col'>
 					<span className='font-bold text-lg'>{user?.name}</span>
 					<span className=' text-sm text-muted-foreground leading-tight'>
-						abcdefg
+						{user?.bio}
 					</span>
 				</div>
 			</div>

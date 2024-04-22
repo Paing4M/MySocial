@@ -1,3 +1,4 @@
+import { CustomUser } from '@/app/api/auth/[...nextauth]/authOption'
 import UserAvatar from '../user/UserAvatar'
 
 const tabs = ['My Posts', 'Settings']
@@ -5,18 +6,19 @@ const tabs = ['My Posts', 'Settings']
 interface TabInterface {
 	tabIndex: number
 	setTabIndex: (idx: number) => void
+	user: CustomUser
 }
 
-const ProfileCard = ({ tabIndex, setTabIndex }: TabInterface) => {
+const ProfileCard = ({ tabIndex, setTabIndex, user }: TabInterface) => {
 	return (
 		<div className='bg-white rounded-md shadow-md border'>
 			<div className='flex  p-6 items-center justify-between '>
 				<div className='flex items-center space-x-5'>
-					<UserAvatar size={'lg'} user={{ name: 'abe' }} />
+					<UserAvatar size={'lg'} user={user} />
 					<div className='flex flex-col'>
-						<span className='font-bold text-lg'>name</span>
+						<span className='font-bold text-lg'>{user?.name}</span>
 						<span className='text-muted-foreground text-sm'>
-							Wed Developer
+							{user?.bio}
 						</span>
 					</div>
 				</div>
