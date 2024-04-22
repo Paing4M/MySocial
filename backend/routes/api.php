@@ -20,9 +20,8 @@ Route::prefix('v1')->group(function () {
   // auth
   Route::post('register', [AuthController::class, 'register']);
   Route::post('login', [AuthController::class, 'login']);
+  Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
   // profile
-  Route::middleware('auth:sanctum')->group(function () {
-    Route::post('update-profile', [ProfileController::class, 'updateProfile']);
-  });
+  Route::post('update-profile', [ProfileController::class, 'updateProfile'])->middleware('auth:sanctum');
 });

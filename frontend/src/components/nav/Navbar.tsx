@@ -11,13 +11,16 @@ import {
 import UserAvatar from '../user/UserAvatar'
 import { useCurrentUser } from '@/hooks/currentUser'
 import { logout } from '@/services/authService'
+import { signOut } from 'next-auth/react'
 
 const Navbar = () => {
 	const user = useCurrentUser()
 
 	const handleLogout = async () => {
 		const res = await logout()
-		console.log(res)
+		if (res.status == 200) {
+			signOut({ callbackUrl: '/auth', redirect: true })
+		}
 	}
 
 	return (
