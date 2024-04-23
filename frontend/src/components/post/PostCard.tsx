@@ -37,7 +37,6 @@ const PostCard = ({}) => {
 					<UserAvatar
 						user={{
 							name: 'abc3f',
-							profile_image: '',
 						}}
 					/>
 					<div className='flex flex-col'>
@@ -56,11 +55,11 @@ const PostCard = ({}) => {
 								<Ellipsis />
 							</DropdownMenuTrigger>
 							<DropdownMenuContent>
-								<DropdownMenuItem>
+								<DropdownMenuItem className='cursor-pointer'>
 									<Pencil className='mr-2 h-4 w-4' />
 									<span>Edit</span>
 								</DropdownMenuItem>
-								<DropdownMenuItem>
+								<DropdownMenuItem className='cursor-pointer'>
 									<Trash className='mr-2 h-4 w-4' />
 									<span>Delete</span>
 								</DropdownMenuItem>

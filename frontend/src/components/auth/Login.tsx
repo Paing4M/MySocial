@@ -17,6 +17,7 @@ import { toast } from 'react-toastify'
 import { login } from '@/services/authService'
 import InputErr from './InputErr'
 import { signIn } from 'next-auth/react'
+import { useSearchParams } from 'next/navigation'
 
 const Login = () => {
 	const [loginState, setLoginState] = useState<LoginType>()
@@ -26,6 +27,8 @@ const Login = () => {
 		password: '',
 		incorrect: '',
 	})
+	const searchParam = useSearchParams()
+	const callbackUrl = searchParam.get('callbackUrl')
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setLoginState((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -49,7 +52,7 @@ const Login = () => {
 					email: loginState?.email,
 					password: loginState?.password,
 					redirect: true,
-					callbackUrl: '/',
+					callbackUrl: callbackUrl ? callbackUrl : '/',
 				})
 				toast.success(res.message)
 			}

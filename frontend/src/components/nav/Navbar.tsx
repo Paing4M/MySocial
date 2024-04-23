@@ -12,6 +12,7 @@ import UserAvatar from '../user/UserAvatar'
 import { useCurrentUser } from '@/hooks/currentUser'
 import { logout } from '@/services/authService'
 import { signOut } from 'next-auth/react'
+import Link from 'next/link'
 
 const Navbar = () => {
 	const user = useCurrentUser()
@@ -26,13 +27,15 @@ const Navbar = () => {
 	return (
 		<div className=' bg-white border-b shadow-md'>
 			<nav className='p-6 h-[60px] max-w-[1300px] flex items-center justify-between mx-auto'>
-				<Image
-					src={'/mySocial.png'}
-					width={50}
-					height={50}
-					className='w-12 object-cover'
-					alt='logo'
-				/>
+				<Link href={'/'}>
+					<Image
+						src={'/mySocial.png'}
+						width={50}
+						height={50}
+						className='w-12 object-cover'
+						alt='logo'
+					/>
+				</Link>
 
 				<div className='hidden md:flex w-[550px] px-4 items-center  border rounded-md'>
 					<Search className='text-muted-foreground' />
@@ -48,7 +51,10 @@ const Navbar = () => {
 							<UserAvatar user={user} />
 						</DropdownMenuTrigger>
 						<DropdownMenuContent>
-							<DropdownMenuItem onClick={handleLogout}>
+							<DropdownMenuItem
+								className='cursor-pointer'
+								onClick={handleLogout}
+							>
 								<LogOut className='mr-2 h-4 w-4' />
 								<span>Log out</span>
 							</DropdownMenuItem>
