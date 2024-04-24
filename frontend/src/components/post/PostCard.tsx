@@ -13,36 +13,30 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import Image from 'next/image'
 
-const PostCard = ({}) => {
+const PostCard = ({ post }: { post: Post }) => {
 	const [isTruncated, setIsTruncated] = useState(true)
 
 	const toggleTruncation = () => {
 		setIsTruncated(!isTruncated)
 	}
 
-	let t = `Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-					Aspernatur, impedit? Eaque voluptate officia debitis quo
-					accusamus expedita mollitia optio consectetur exercitationem
-					consequatur soluta magni perspiciatis, libero at! Omnis,
-					voluptate! Cumque fugiat aliquid, unde aut nobis dolorem ea error
-					molestias quidem.`
+	let postDesc = post?.desc
 
-	const displayedText = isTruncated ? `${t.slice(0, 200)} ...` : t
+	const displayedText = isTruncated
+		? `${postDesc.slice(0, 200)} ...`
+		: postDesc
 
 	return (
 		<div className='bg-white border rounded-lg shadow-md mb-8 last-of-type:mb-0'>
 			<div className='flex items-center justify-between p-6'>
 				<div className='flex items-center gap-3'>
-					<UserAvatar
-						user={{
-							name: 'abc3f',
-						}}
-					/>
+					<UserAvatar user={post?.user!} />
 					<div className='flex flex-col'>
 						<span className='text-lg font-bold'>test</span>
 						<span className='text-sm text-muted-foreground leading-tight'>
-							web developer
+							{post?.user?.bio}
 						</span>
 					</div>
 				</div>
@@ -78,7 +72,7 @@ const PostCard = ({}) => {
 			<div className='p-6'>
 				<p>
 					{displayedText}{' '}
-					{t.length > 200 && (
+					{postDesc?.length > 200 && (
 						<span
 							onClick={toggleTruncation}
 							className='inline-block ml-1 cursor-pointer text-sm text-[#6174D9]'
@@ -88,6 +82,20 @@ const PostCard = ({}) => {
 					)}
 				</p>
 			</div>
+
+			{post?.image && (
+				<div className='p-6'>
+					<Image
+						src={
+							process.env.NEXT_PUBLIC_API_URL + '/storage/' + post?.image
+						}
+						width={500}
+						height={500}
+						className='w-full h-[500px] object-cover'
+						alt='post-img'
+					/>
+				</div>
+			)}
 
 			{/*  */}
 			<div className='p-6 flex items-center justify-between'>

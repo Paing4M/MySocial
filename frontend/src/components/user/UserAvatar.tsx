@@ -1,11 +1,12 @@
-import { CustomUser } from '@/app/api/auth/[...nextauth]/authOption'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 const UserAvatar = ({
-	user,
+	name,
+	profile_img,
 	size = 'md',
 }: {
-	user: CustomUser
+	name: string
+	profile_img?: string
 	size?: string
 }) => {
 	return (
@@ -21,15 +22,13 @@ const UserAvatar = ({
 			<AvatarImage
 				className='object-cover'
 				src={
-					user?.profile_img
-						? process.env.NEXT_PUBLIC_API_URL +
-						  '/storage/' +
-						  user?.profile_img
+					profile_img
+						? process.env.NEXT_PUBLIC_API_URL + '/storage/' + profile_img
 						: ''
 				}
 			/>
 			<AvatarFallback className='bg-[#C3C5F1]'>
-				{user?.name?.slice(0, 3)}
+				{name?.slice(0, 3)}
 			</AvatarFallback>
 		</Avatar>
 	)

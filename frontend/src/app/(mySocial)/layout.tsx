@@ -21,11 +21,6 @@ export default async function MySocialLayout({
 }: Readonly<{
 	children: React.ReactNode
 }>) {
-	const session: CustomSession = (await getServerSession(
-		authOption
-	)) as CustomSession
-	const user: CustomUser = session.user as CustomUser
-
 	return (
 		<div>
 			<Navbar />

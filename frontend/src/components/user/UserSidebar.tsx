@@ -31,16 +31,21 @@ const UserSidebar = () => {
 
 	return (
 		<div className='p-6 hidden md:block rounded-lg border shadow-md bg-white w-[280px]'>
-			<div className='flex items-center gap-3'>
-				<UserAvatar user={user} />
-				<div className='flex flex-col'>
-					<span className='font-bold text-lg'>{user?.name}</span>
-					<span className='capitalize text-sm text-muted-foreground leading-tight'>
-						{user?.bio}
-					</span>
+			{user && (
+				<div className='flex items-center gap-3'>
+					<UserAvatar
+						name={user?.name!}
+						profile_img={user?.profile_img!}
+					/>
+					<div className='flex flex-col'>
+						<span className='font-bold text-lg'>{user?.name}</span>
+						<span className='capitalize text-sm text-muted-foreground leading-tight'>
+							{user?.bio}
+						</span>
+					</div>
 				</div>
-			</div>
-			<div className='pt-6'>
+			)}
+			<div className={user && 'pt-6'}>
 				<ul>
 					{links.map((item) => (
 						<li key={item.name}>

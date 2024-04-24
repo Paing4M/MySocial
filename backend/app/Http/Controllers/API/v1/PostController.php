@@ -4,13 +4,13 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\PostStoreRequest;
+use App\Http\Resources\v1\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
 class PostController extends Controller implements HasMiddleware {
-
 
   public static function middleware(): array {
     return [
@@ -19,7 +19,8 @@ class PostController extends Controller implements HasMiddleware {
   }
 
   public function index() {
-    //
+    $posts = Post::orderByDesc('created_at')->paginate(2);
+    return PostResource::collection($posts);
   }
 
 

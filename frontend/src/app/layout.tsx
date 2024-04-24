@@ -29,7 +29,6 @@ export default function RootLayout({
 			<body className={roboto.className + ' bg-bgColor'}>
 				<AuthProvider>{children}</AuthProvider>
 				<ToastContainer
-					// className={'z-[1000]'}
 					position='top-right'
 					autoClose={5000}
 					hideProgressBar={false}

@@ -1,6 +1,5 @@
 'use client'
 
-import { CustomUser } from '@/app/api/auth/[...nextauth]/authOption'
 import UserAvatar from '../user/UserAvatar'
 import { Image as ImageIcon } from 'lucide-react'
 import { Button } from '../ui/button'
@@ -10,8 +9,9 @@ import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { createPost } from '@/services/postService'
 import Error from '../common/Error'
+import { useCurrentUser } from '@/hooks/currentUser'
 
-const AddPostCard = ({ user }: { user: CustomUser }) => {
+const AddPostCard = () => {
 	const [image, setImage] = useState<File | null>()
 	const [desc, setDesc] = useState('')
 	const [loading, setLoading] = useState(false)
@@ -20,6 +20,7 @@ const AddPostCard = ({ user }: { user: CustomUser }) => {
 		desc: '',
 	})
 	const router = useRouter()
+	const user = useCurrentUser()
 
 	const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
