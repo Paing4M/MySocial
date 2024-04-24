@@ -17,7 +17,11 @@ axiosInstance.interceptors.request.use(
 			Authorization: `Bearer ${token}`,
 		}
 
-		if (config?.url?.includes('/update-profile') && config.method == 'post') {
+		if (
+			(config?.url?.includes('/update-profile') ||
+				config?.url?.includes('/posts')) &&
+			config.method == 'post'
+		) {
 			headers = {
 				...headers,
 				'Content-Type': 'multipart/form-data',
@@ -27,8 +31,7 @@ axiosInstance.interceptors.request.use(
 		config.headers = headers
 		return config
 	},
-	async (response) => response,
-	async (err) => err
+	async (response) => response
 )
 
 export default axiosInstance

@@ -9,3 +9,8 @@ type LoginType = {
 	email?: string
 	password?: string
 }
+
+type CreatePostType = {
+	desc: any
+	image?: File | null
+}

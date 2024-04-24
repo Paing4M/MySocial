@@ -3,9 +3,56 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\v1\PostStoreRequest;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class PostController extends Controller
-{
+class PostController extends Controller implements HasMiddleware {
+
+
+  public static function middleware(): array {
+    return [
+      new Middleware('auth:sanctum', except: ['index']),
+    ];
+  }
+
+  public function index() {
     //
+  }
+
+
+  public function store(PostStoreRequest $request) {
+    $payload  = $request->only(['desc', 'image']);
+    $user = $request->user('sanctum');
+    $payload['user_id'] = $user->id;
+
+    if (isset($payload['image'])) {
+      $filename = $payload['image']->store('post_images');
+      $payload['image'] = $filename;
+    }
+
+    $post = Post::create($payload);
+
+    return response()->json([
+      'message' => 'Post created successfully.',
+      'post' => $post,
+      'status' => 201
+    ], 201);
+  }
+
+
+  public function show(string $id) {
+    //
+  }
+
+
+  public function update(Request $request, string $id) {
+    //
+  }
+
+  public function destroy(string $id) {
+    //
+  }
 }
