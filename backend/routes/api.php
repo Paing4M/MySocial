@@ -1,8 +1,10 @@
 <?php
 
+use App\Events\TestEvent;
 use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\PostController;
 use App\Http\Controllers\API\v1\ProfileController;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +31,10 @@ Route::prefix('v1')->group(function () {
     'posts' => PostController::class,
 
   ]);
+});
+
+Route::post('/test', function () {
+  $post = Post::latest()->first();
+  event(new TestEvent($post));
+  return $post;
 });

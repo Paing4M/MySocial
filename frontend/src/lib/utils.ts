@@ -7,7 +7,11 @@ export function cn(...inputs: ClassValue[]) {
 
 export function sliceDesc(desc: string, isTruncated: boolean): string {
 	if (desc) {
-		const displayedText = isTruncated ? `${desc.slice(0, 200)} ...` : desc
-		return displayedText
+		if (desc.length >= 200) {
+			const displayedText = isTruncated ? `${desc.slice(0, 200)} ...` : desc
+			return displayedText
+		} else {
+			return desc
+		}
 	} else return ''
 }

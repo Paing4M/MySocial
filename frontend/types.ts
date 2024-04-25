@@ -50,7 +50,8 @@ type PostType = {
 	desc: string
 	image?: string
 	user: User
-	created_at: string
+	created_at?: string
+	updated_at?: string
 }
 
 type User = {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Events\TestEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\PostStoreRequest;
 use App\Http\Resources\v1\PostResource;
@@ -35,6 +36,8 @@ class PostController extends Controller implements HasMiddleware {
     }
 
     $post = Post::create($payload);
+
+    broadcast(new TestEvent($post));
 
     return response()->json([
       'message' => 'Post created successfully.',
