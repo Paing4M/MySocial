@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Events\PostCreateEvent;
 use App\Events\TestEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\PostStoreRequest;
@@ -35,9 +36,8 @@ class PostController extends Controller implements HasMiddleware {
       $payload['image'] = $filename;
     }
 
-    $post = Post::create($payload);
-
-    broadcast(new TestEvent($post));
+    $post =  Post::create($payload)->with('user')->orderByDesc('created_at')->first();
+    broadcast(new PostCreateEvent($post));
 
     return response()->json([
       'message' => 'Post created successfully.',

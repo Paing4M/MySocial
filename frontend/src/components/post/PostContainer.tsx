@@ -15,7 +15,7 @@ const PostContainer = () => {
 	}, [])
 
 	useEffect(() => {
-		laraEcho.channel('test').listen('TestEvent', (e: any) => {
+		laraEcho.channel('post_create').listen('PostCreateEvent', (e: any) => {
 			// console.log(e)
 			if (e.post) {
 				const post: PostType = e.post

@@ -14,7 +14,11 @@ const ProfileCard = ({ tabIndex, setTabIndex, user }: TabInterface) => {
 		<div className='bg-white rounded-md shadow-md border'>
 			<div className='flex  p-6 items-center justify-between '>
 				<div className='flex items-center space-x-5'>
-					<UserAvatar size={'lg'} user={user} />
+					<UserAvatar
+						size={'lg'}
+						name={user?.name!}
+						profile_img={user?.profile_img!}
+					/>
 					<div className='flex flex-col'>
 						<span className='font-bold text-lg'>{user?.name}</span>
 						<span className='text-muted-foreground text-sm capitalize'>

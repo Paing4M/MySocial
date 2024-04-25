@@ -114,7 +114,7 @@ const PostCard = ({ post }: { post: PostType }) => {
 
 			{/* comments */}
 			<div className='mt-3 px-6'>
-				<AddCommentBox user={{ name: 'abc3f' }} />
+				<AddCommentBox user={user} />
 				<CommentContainer />
 			</div>
 		</div>

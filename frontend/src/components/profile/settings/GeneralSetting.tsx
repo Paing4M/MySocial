@@ -66,6 +66,7 @@ const GeneralSetting = () => {
 					name: '',
 					bio: '',
 				})
+				setImage(null)
 			}
 		} catch (err: any) {
 			// console.log(err)
@@ -75,8 +76,6 @@ const GeneralSetting = () => {
 			setLoading(false)
 		}
 	}
-
-	console.log(errors)
 
 	return (
 		<div>
@@ -104,7 +103,7 @@ const GeneralSetting = () => {
 									src={URL.createObjectURL(image)}
 									width={400}
 									height={300}
-									className='w-full h-[300px] object-cover'
+									className='w-full rounded-lg h-[300px] object-cover'
 									alt='profile-img'
 								/>
 							</div>
