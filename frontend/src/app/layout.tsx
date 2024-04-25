@@ -26,7 +26,10 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={roboto.className + ' bg-bgColor'}>
+			<body
+				className={roboto.className + ' bg-bgColor'}
+				suppressHydrationWarning
+			>
 				<AuthProvider>{children}</AuthProvider>
 				<ToastContainer
 					position='top-right'

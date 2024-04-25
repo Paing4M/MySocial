@@ -19,7 +19,7 @@ class PostController extends Controller implements HasMiddleware {
   }
 
   public function index() {
-    $posts = Post::orderByDesc('created_at')->paginate(2);
+    $posts = Post::orderByDesc('created_at')->paginate(20);
     return PostResource::collection($posts);
   }
 

@@ -65,7 +65,10 @@ const AddPostCard = () => {
 		<div className='bg-white shadow-md rounded-lg border p-6'>
 			<form action='' onSubmit={handleSubmit}>
 				<div className='flex items-start space-x-4'>
-					<UserAvatar user={user} />
+					<UserAvatar
+						name={user?.name!}
+						profile_img={user?.profile_img!}
+					/>
 					<div className='w-full'>
 						<input
 							value={desc}

@@ -15,8 +15,8 @@ type CreatePostType = {
 	image?: File | null
 }
 
-type PostApiResponseType = {
-	data: Post[]
+type ApiResponseType<T> = {
+	data: Array<T> | []
 	links: Links
 	meta: Meta
 }
@@ -45,7 +45,7 @@ type Links = {
 	next?: any
 }
 
-type Post = {
+type PostType = {
 	id: string
 	desc: string
 	image?: string
@@ -54,6 +54,7 @@ type Post = {
 }
 
 type User = {
+	id: string
 	name: string
 	profile_img?: string
 	bio?: string | number

@@ -13,6 +13,6 @@ class Post extends Model {
   protected $fillable = ['desc', 'image', 'user_id'];
 
   public function user(): BelongsTo {
-    return $this->belongsTo(User::class, 'user_id')->select('name',  'profile_img', 'bio');
+    return $this->belongsTo(User::class, 'user_id')->select('id', 'name',  'profile_img', 'bio');
   }
 }
