@@ -1,18 +1,10 @@
 import CommentCard from './CommentCard'
 
-const CommentContainer = () => {
+const CommentContainer = ({ comments }: { comments: CommentType[] }) => {
 	return (
 		<div className='mt-6 h-fit max-h-[350px] overflow-y-scroll scrollbar-hide'>
-			<CommentCard />
-			<CommentCard />
-			<CommentCard />
-			<CommentCard />
-			<CommentCard />
-			<CommentCard />
-			<CommentCard />
-			<CommentCard />
-			<CommentCard />
-			<CommentCard />
+			{comments &&
+				comments.map((cmt) => <CommentCard key={cmt.id} cmt={cmt} />)}
 		</div>
 	)
 }

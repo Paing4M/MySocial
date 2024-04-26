@@ -21,7 +21,13 @@ class PostController extends Controller implements HasMiddleware {
   }
 
   public function index() {
-    $posts = Post::orderByDesc('created_at')->paginate(20);
+    $posts = Post::query()
+      ->withCount('comments')
+      ->with(['comments.user:id,name'])
+      ->orderByDesc('created_at')
+      ->paginate(20);
+
+    // return response()->json($posts);
     return PostResource::collection($posts);
   }
 

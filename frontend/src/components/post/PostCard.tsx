@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import Image from 'next/image'
 import { useCurrentUser } from '@/hooks/currentUser'
-import { sliceDesc } from '@/lib/utils'
+import { formatDate, sliceDesc } from '@/lib/utils'
 
 const PostCard = ({ post }: { post: PostType }) => {
 	const [isTruncated, setIsTruncated] = useState(true)
@@ -63,7 +63,7 @@ const PostCard = ({ post }: { post: PostType }) => {
 						</DropdownMenu>
 
 						<span className='text-sm text-muted-foreground leading-tight'>
-							2 days ago
+							{formatDate(post?.created_at!)}
 						</span>
 					</div>
 				</div>
@@ -113,9 +113,12 @@ const PostCard = ({ post }: { post: PostType }) => {
 			</div>
 
 			{/* comments */}
-			<div className='mt-3 px-6'>
-				<AddCommentBox user={user} />
-				<CommentContainer />
+			<div className='mt-3 px-6 pb-6'>
+				{user && <AddCommentBox user={user} postId={post?.id} />}
+
+				{post?.comments && post?.comments?.length > 0 && (
+					<CommentContainer comments={post?.comments} />
+				)}
 			</div>
 		</div>
 	)

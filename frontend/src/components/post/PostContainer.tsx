@@ -10,6 +10,8 @@ const PostContainer = () => {
 	const [posts, setPosts] = useState<ApiResponseType<PostType>>()
 	const [loading, setLoading] = useState(false)
 
+	console.log(posts?.data)
+
 	useEffect(() => {
 		getPosts()
 	}, [])
@@ -21,10 +23,6 @@ const PostContainer = () => {
 				const post: PostType = e.post
 
 				setPosts((prev: any) => {
-					if (!prev) {
-						return { data: [post, ...[]], links: {}, meta: {} }
-					}
-
 					return {
 						...prev,
 						data: [post, ...prev.data],

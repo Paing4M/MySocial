@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import moment from 'moment'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -14,4 +15,9 @@ export function sliceDesc(desc: string, isTruncated: boolean): string {
 			return desc
 		}
 	} else return ''
+}
+
+export function formatDate(date: string) {
+	const formattedDate = moment(date).utc().startOf('day').fromNow()
+	return formattedDate
 }

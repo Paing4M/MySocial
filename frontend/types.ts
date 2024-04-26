@@ -50,6 +50,7 @@ type PostType = {
 	desc: string
 	image?: string
 	user: User
+	comments?: CommentType[]
 	created_at?: string
 	updated_at?: string
 }
@@ -58,5 +59,14 @@ type User = {
 	id: string
 	name: string
 	profile_img?: string
-	bio?: string | number
+	bio?: string
+}
+
+type CommentType = {
+	id: string
+	comment: string
+	user_id: string
+	post_id: string
+	user: User
+	created_at: string
 }
