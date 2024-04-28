@@ -57,7 +57,7 @@ const Register = () => {
 			}
 		} catch (err: any) {
 			setLoading(false)
-			console.log(err)
+			// console.log(err)
 			if (err?.response?.status == 422) {
 				setErrors(err?.response?.data?.errors)
 			}

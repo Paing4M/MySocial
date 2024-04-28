@@ -28,7 +28,7 @@ export const privateLaraEcho = (token: string) =>
 		authEndpoint: process.env.NEXT_PUBLIC_API_URL + '/api/broadcasting/auth',
 		auth: {
 			headers: {
-				Authorization: 'Bearer ' + token,
+				Authorization: `Bearer ${token}`,
 			},
 		},
 		key: process.env.NEXT_PUBLIC_REVERB_APP_KEY,

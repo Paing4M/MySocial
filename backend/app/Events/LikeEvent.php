@@ -10,14 +10,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TestEvent implements ShouldBroadcast {
+class LikeEvent implements ShouldBroadcast {
   use Dispatchable, InteractsWithSockets, SerializesModels;
-  public $post;
+
   /**
    * Create a new event instance.
    */
-  public function __construct($post) {
-    $this->post = $post;
+
+  public $user_id, $post_id, $type;
+
+
+  public function __construct($user_id,  $post_id, $type) {
+    $this->user_id = $user_id;
+    $this->post_id = $post_id;
+    $this->type = $type;
   }
 
   /**
@@ -27,9 +33,18 @@ class TestEvent implements ShouldBroadcast {
    */
   public function broadcastOn(): array {
     return [
+      new Channel('post_channel'),
+    ];
+  }
 
-      // new Channel('test'),
-      new PrivateChannel('test'),
+
+  public function broadcastWith() {
+    return [
+      'data' => [
+        'user_id' => $this->user_id,
+        'post_id' => $this->post_id,
+        'type' => $this->type
+      ]
     ];
   }
 }

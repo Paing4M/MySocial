@@ -20,9 +20,14 @@ class PostController extends Controller implements HasMiddleware {
     ];
   }
 
-  public function index() {
+  public function index(Request $request) {
+
     $posts = Post::query()
+      ->when($request->search, function ($q) use ($request) {
+        $q->where('desc', 'LIKE', '%' . $request->search . '%');
+      })
       ->withCount('comments')
+      ->withCount('likes')
       ->with(['comments.user:id,name'])
       ->orderByDesc('created_at')
       ->paginate(20);

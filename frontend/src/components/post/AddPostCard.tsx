@@ -40,7 +40,7 @@ const AddPostCard = () => {
 					desc,
 					image,
 				})
-				console.log(res)
+				// console.log(res)
 				if (res?.status == 201) {
 					setLoading(false)
 					setDesc('')

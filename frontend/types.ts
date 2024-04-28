@@ -51,6 +51,9 @@ type PostType = {
 	image?: string
 	user: User
 	comments?: CommentType[]
+	likes?: LikeType[]
+	like_count: number
+	liked_by_user?: boolean
 	created_at?: string
 	updated_at?: string
 }
@@ -69,4 +72,9 @@ type CommentType = {
 	post_id: string
 	user: User
 	created_at: string
+}
+
+type LikeType = {
+	user_id: string
+	post_id: string
 }

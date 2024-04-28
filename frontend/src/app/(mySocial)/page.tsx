@@ -6,7 +6,6 @@ import {
 	authOption,
 } from '../api/auth/[...nextauth]/authOption'
 import { getServerSession } from 'next-auth'
-import { getPosts as getPostsService } from '@/services/postService'
 
 export default async function Home() {
 	const session: CustomSession = (await getServerSession(

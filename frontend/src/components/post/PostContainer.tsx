@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react'
 import PostCard from './PostCard'
 import { getPosts as getPostsService } from '@/services/postService'
 import PostLoading from '../skeletonLoading/PostLoading'
-import { laraEcho } from '@/lib/echoConfig'
+import { laraEcho, privateLaraEcho } from '@/lib/echoConfig'
+import { useCurrentUser } from '@/hooks/currentUser'
 
 const PostContainer = () => {
 	const [posts, setPosts] = useState<ApiResponseType<PostType>>()
 	const [loading, setLoading] = useState(false)
+	const user = useCurrentUser()
 
 	console.log(posts?.data)
 
@@ -17,8 +19,7 @@ const PostContainer = () => {
 	}, [])
 
 	useEffect(() => {
-		laraEcho.channel('post_create').listen('PostCreateEvent', (e: any) => {
-			// console.log(e)
+		laraEcho.channel('post_channel').listen('PostCreateEvent', (e: any) => {
 			if (e.post) {
 				const post: PostType = e.post
 
@@ -32,7 +33,7 @@ const PostContainer = () => {
 		})
 
 		return () => {
-			laraEcho.leave('test')
+			laraEcho.leave('post_channel')
 		}
 	}, [])
 

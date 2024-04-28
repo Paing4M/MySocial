@@ -27,7 +27,7 @@ class PostCreateEvent implements ShouldBroadcast {
    */
   public function broadcastOn(): array {
     return [
-      new Channel('post_create'),
+      new Channel('post_channel'),
     ];
   }
 }

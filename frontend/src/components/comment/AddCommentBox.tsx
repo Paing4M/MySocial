@@ -8,7 +8,6 @@ import { useState } from 'react'
 import { addComment } from '@/services/commentService'
 import Error from '../common/Error'
 import { toast } from 'react-toastify'
-import { useCurrentUser } from '@/hooks/currentUser'
 
 const AddCommentBox = ({
 	user,
@@ -29,16 +28,15 @@ const AddCommentBox = ({
 				post_id: postId,
 			}
 			const res = await addComment(data)
-			console.log(res)
 			if (res?.status == 201) {
 				toast.success(res?.message)
+				setCommentState('')
 				setErrors({
 					comment: '',
 				})
-				setCommentState('')
 			}
 		} catch (err: any) {
-			console.log(err)
+			// console.log(err)
 			if (err?.response?.status == 422) {
 				setErrors(err?.response?.data?.errors)
 			}
@@ -51,6 +49,7 @@ const AddCommentBox = ({
 			<form onSubmit={handleSubmit} className='w-full'>
 				<div className='flex items-center gap-2 w-full'>
 					<Input
+						value={commentState}
 						onChange={(e) => setCommentState(e.target.value)}
 						className='flex-1'
 						placeholder='Share your thought here....'
