@@ -57,9 +57,7 @@ const PostCard = ({ post }: { post: PostType }) => {
 	useEffect(() => {
 		laraEcho
 			.channel('post_channel')
-
 			.listen('LikeEvent', (e: any) => {
-				console.log(e)
 				if (postState?.id == e.data.post_id) {
 					setPostState((prev) => ({
 						...prev,
@@ -69,6 +67,15 @@ const PostCard = ({ post }: { post: PostType }) => {
 								: e.data.type === 'unLike'
 								? prev.like_count - 1
 								: 0,
+					}))
+				}
+			})
+			.listen('CommentEvent', (e: any) => {
+				if (e.comment?.post_id == post.id) {
+					const comment = e.comment
+					setPostState((prev) => ({
+						...prev,
+						comments: [comment, ...prev.comments!],
 					}))
 				}
 			})

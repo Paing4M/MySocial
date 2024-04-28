@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Events\CommentEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -17,7 +18,12 @@ class CommentController extends Controller {
     $user = $request->user('sanctum');
     $payload['user_id'] = $user->id;
 
-    $comment = Comment::create($payload)->orderByDesc('created_at')->first();
+    $comment = Comment::create($payload)
+      ->select(['id', 'comment', 'user_id', 'post_id',  'created_at'])->with('user:id,name,profile_img,bio')->orderByDesc('created_at')->first();
+
+
+
+    broadcast(new CommentEvent($comment));
 
     return response()->json([
       'message' => 'Comment added successfully.',
