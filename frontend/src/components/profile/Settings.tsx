@@ -38,7 +38,7 @@ const Settings = () => {
 								<li
 									onClick={() => setTabIdx(idx)}
 									key={tab + idx}
-									className={`capitalize cursor-pointer mb-1 last-of-type:mb-0 w-full text-center lg:text-left py-2 px-6 ${
+									className={`capitalize cursor-pointer mb-1 last-of-type:mb-0 w-full text-center lg:text-left py-2 px-6 rounded-md ${
 										tabIdx == idx ? 'bg-[#F1F4F9]' : ''
 									}`}
 								>
@@ -47,7 +47,7 @@ const Settings = () => {
 							))}
 
 							<li
-								className={`capitalize cursor-pointer mb-1 last-of-type:mb-0 w-full py-2 px-0 lg:px-6`}
+								className={`capitalize cursor-pointer mt-0 lg:mt-4 last-of-type:mb-0 w-full py-2 px-0 lg:px-6`}
 							>
 								<Button className='w-full' variant={'destructive'}>
 									Logout

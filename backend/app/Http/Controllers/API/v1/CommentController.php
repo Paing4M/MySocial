@@ -22,7 +22,6 @@ class CommentController extends Controller {
       ->select(['id', 'comment', 'user_id', 'post_id',  'created_at'])->with('user:id,name,profile_img,bio')->orderByDesc('created_at')->first();
 
 
-
     broadcast(new CommentEvent($comment));
 
     return response()->json([

@@ -35,20 +35,28 @@ const PostCard = ({ post }: { post: PostType }) => {
 
 		try {
 			const res = await addLike({ post_id: postState?.id })
-
-			if (res.status == 201) {
+			if (res) {
+				const status = res.status
 				setPostState((prev) => ({
 					...prev,
-					liked_by_user: true,
+					liked_by_user:
+						status == 201 ? true : status == 200 ? false : false,
 				}))
 			}
 
-			if (res.status == 200) {
-				setPostState((prev) => ({
-					...prev,
-					liked_by_user: false,
-				}))
-			}
+			// if (res.status == 201) {
+			// 	setPostState((prev) => ({
+			// 		...prev,
+			// 		liked_by_user: true,
+			// 	}))
+			// }
+
+			// if (res.status == 200) {
+			// 	setPostState((prev) => ({
+			// 		...prev,
+			// 		liked_by_user: false,
+			// 	}))
+			// }
 		} catch (error: any) {
 			console.log(error)
 		}

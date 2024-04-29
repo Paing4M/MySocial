@@ -11,7 +11,10 @@ const AccountSetting = () => {
 			</p>
 
 			<div className='mt-6'>
-				<Button variant={'outline'} className='border-red-600 text-red-500'>
+				<Button
+					variant={'outline'}
+					className='border-red-600 text-red-500 hover:bg-red-500 hover:text-white'
+				>
 					Delete My Account
 				</Button>
 			</div>
