@@ -16,7 +16,7 @@ import { useCurrentUser } from '@/hooks/currentUser'
 import { formatDate, sliceDesc } from '@/lib/utils'
 import { toast } from 'react-toastify'
 import { addLike } from '@/services/likeService'
-import { laraEcho } from '@/lib/echoConfig'
+import { laraEcho, privateLaraEcho } from '@/lib/echoConfig'
 
 const PostCard = ({ post }: { post: PostType }) => {
 	const [isTruncated, setIsTruncated] = useState(true)
@@ -43,20 +43,6 @@ const PostCard = ({ post }: { post: PostType }) => {
 						status == 201 ? true : status == 200 ? false : false,
 				}))
 			}
-
-			// if (res.status == 201) {
-			// 	setPostState((prev) => ({
-			// 		...prev,
-			// 		liked_by_user: true,
-			// 	}))
-			// }
-
-			// if (res.status == 200) {
-			// 	setPostState((prev) => ({
-			// 		...prev,
-			// 		liked_by_user: false,
-			// 	}))
-			// }
 		} catch (error: any) {
 			console.log(error)
 		}
@@ -102,7 +88,9 @@ const PostCard = ({ post }: { post: PostType }) => {
 						profile_img={postState?.user?.profile_img!}
 					/>
 					<div className='flex flex-col'>
-						<span className='text-lg font-bold'>test</span>
+						<span className='text-lg font-bold'>
+							{postState?.user?.name}
+						</span>
 						<span className='text-sm text-muted-foreground leading-tight'>
 							{postState?.user?.bio}
 						</span>

@@ -62,7 +62,7 @@ type User = {
 	id: string
 	name: string
 	profile_img?: string
-	bio?: string
+	bio?: any
 }
 
 type CommentType = {

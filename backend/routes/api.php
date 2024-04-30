@@ -38,11 +38,12 @@ Route::prefix('v1')->group(function () {
   Route::post('/add-like', [LikeController::class, 'addLike'])->middleware('auth:sanctum');
 });
 
-Route::post('/test', function () {
-  $post = Post::latest()->first();
-  broadcast(new TestEvent($post));
+Route::post('/test', function (Request $request) {
+  $user = $request->user('sanctum');
+  $noti = $user->notifications()->get();
+
   // $c = Comment::where('id', '1')->with('user')->get();
-  return 'done';
+  return $noti;
 });
 
 

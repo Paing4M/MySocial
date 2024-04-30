@@ -45,4 +45,8 @@ class User extends Authenticatable {
       'password' => 'hashed',
     ];
   }
+
+  public function receivesBroadcastNotificationsOn(): string {
+    return 'notifications.' . $this->id;
+  }
 }

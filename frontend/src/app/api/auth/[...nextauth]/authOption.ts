@@ -18,7 +18,25 @@ export interface CustomUser {
 	created_at?: string | null
 	updated_at?: string | null
 	token?: string | null
+	// notifications?: CustomNoti[] | null
 }
+
+// export interface CustomNoti {
+// 	id?: string
+// 	type?: string
+// 	notifiable_type?: string
+// 	notifiable_id?: number
+// 	data?: Data
+// 	read_at?: any
+// 	created_at?: string
+// 	updated_at?: string
+// }
+
+// interface Data {
+// 	title: string
+// 	post_id: string
+// 	user: CustomUser
+// }
 
 export const authOption: AuthOptions = {
 	pages: {

@@ -1,6 +1,5 @@
 'use client'
 
-import { CustomUser } from '@/app/api/auth/[...nextauth]/authOption'
 import UserAvatar from './UserAvatar'
 import { Bell, Home, UserRound } from 'lucide-react'
 import Link from 'next/link'
@@ -24,7 +23,14 @@ const UserSidebar = () => {
 		},
 		{
 			name: 'Notifications',
-			icon: <Bell />,
+			icon: (
+				<div className='relative'>
+					<Bell />
+					{/* {user?.notifications && user?.notifications?.length > 0 && (
+						<div className='absolute top-0 right-[3px] w-[10px] h-[10px] rounded-full bg-red-500'></div>
+					)} */}
+				</div>
+			),
 			link: '/notifications',
 		},
 	]
