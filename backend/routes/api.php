@@ -8,6 +8,7 @@ use App\Http\Controllers\API\v1\PostController;
 use App\Http\Controllers\API\v1\ProfileController;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
@@ -48,3 +49,8 @@ Route::post('/test', function (Request $request) {
 
 
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
+
+
+// Route::get('test' , function(){
+
+// });

@@ -12,15 +12,13 @@ const Container = ({ children }: { children: React.ReactNode }) => {
 	const user = useCurrentUser()
 
 	useEffect(() => {
-		if (user) {
-			const echo = privateLaraEcho(user?.token!)
-			echo.private(`notifications.${user?.id}`).notification((e: any) => {
-				console.log(e)
-				if (e.data.user.id != user.id) {
-					toast.success(e.data.title)
-				}
-			})
-		}
+		const echo = privateLaraEcho(user?.token!)
+		echo.private(`notifications.${user?.id}`).notification((e: any) => {
+			console.log(e)
+			if (e.data.user.id != user.id) {
+				toast.success(e.data.title)
+			}
+		})
 	}, [user])
 
 	return (
