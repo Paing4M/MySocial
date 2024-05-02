@@ -10,15 +10,10 @@ type LoginType = {
 	password?: string
 }
 
-type CreatePostType = {
-	desc: any
-	image?: File | null
-}
-
 type ApiResponseType<T> = {
-	data: Array<T> | []
-	links: Links
-	meta: Meta
+	data?: Array<T> | []
+	links?: Links
+	meta?: Meta
 }
 
 type Meta = {

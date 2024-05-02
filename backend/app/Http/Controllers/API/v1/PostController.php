@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Events\PostCreateEvent;
+use App\Events\PostUpdateEvent;
 use App\Events\TestEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\PostStoreRequest;
+use App\Http\Requests\v1\PostUpdateRequest;
 use App\Http\Resources\v1\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller implements HasMiddleware {
 
@@ -63,8 +66,30 @@ class PostController extends Controller implements HasMiddleware {
   }
 
 
-  public function update(Request $request, string $id) {
-    //
+  public function update(PostUpdateRequest $request, string $id) {
+    $post = Post::where("id", $id)->with('user')->with('comments')->first();
+    $payload = $request->only(['desc', 'image']);
+
+    if (isset($payload['image'])) {
+      if (isset($post->image) && Storage::exists($post->image)) {
+        Storage::delete($post->image);
+      }
+
+      $filename = $payload['image']->store('post_images');
+      $payload['image'] = $filename;
+    }
+
+    $post->desc = $payload['desc'];
+    $post->image = $payload['image'] ?? $post->image;
+    $post->save();
+
+    broadcast(new PostUpdateEvent($post));
+
+    return response()->json([
+      'message' => 'Post updated successfully.',
+      'post' => $post,
+      'status' => 200
+    ], 200);
   }
 
   public function destroy(string $id) {

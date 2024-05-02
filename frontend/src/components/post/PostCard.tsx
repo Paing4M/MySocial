@@ -16,12 +16,19 @@ import { useCurrentUser } from '@/hooks/currentUser'
 import { formatDate, sliceDesc } from '@/lib/utils'
 import { toast } from 'react-toastify'
 import { addLike } from '@/services/likeService'
-import { laraEcho, privateLaraEcho } from '@/lib/echoConfig'
+import { laraEcho } from '@/lib/echoConfig'
+import PostEditModal from '../modal/PostEditModal'
 
 const PostCard = ({ post }: { post: PostType }) => {
 	const [isTruncated, setIsTruncated] = useState(true)
 	const [postState, setPostState] = useState(post)
+	const [openEditModal, setOpenEditModal] = useState(false)
+	const [openDeleteModal, setOpenDeleteModal] = useState(false)
 	const user = useCurrentUser()
+
+	useEffect(() => {
+		setPostState(post)
+	}, [post])
 
 	const toggleTruncation = () => {
 		setIsTruncated(!isTruncated)
@@ -69,7 +76,9 @@ const PostCard = ({ post }: { post: PostType }) => {
 					const comment = e.comment
 					setPostState((prev) => ({
 						...prev,
-						comments: [comment, ...prev.comments!],
+						comments: prev.comments
+							? [comment, ...prev?.comments]
+							: [comment],
 					}))
 				}
 			})
@@ -106,7 +115,10 @@ const PostCard = ({ post }: { post: PostType }) => {
 							</DropdownMenuTrigger>
 							{postState?.user?.id == user?.id && (
 								<DropdownMenuContent>
-									<DropdownMenuItem className='cursor-pointer'>
+									<DropdownMenuItem
+										onClick={() => setOpenEditModal(true)}
+										className='cursor-pointer'
+									>
 										<Pencil className='mr-2 h-4 w-4' />
 										<span>Edit</span>
 									</DropdownMenuItem>
@@ -123,6 +135,13 @@ const PostCard = ({ post }: { post: PostType }) => {
 						</span>
 					</div>
 				</div>
+
+				{/* post modal */}
+				<PostEditModal
+					open={openEditModal}
+					setOpen={setOpenEditModal}
+					post={post}
+				/>
 			</div>
 
 			<hr />

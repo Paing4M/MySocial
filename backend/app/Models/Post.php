@@ -22,7 +22,7 @@ class Post extends Model {
   }
 
   public function comments(): HasMany {
-    return $this->hasMany(Comment::class)->select('id', 'comment', 'user_id', 'post_id', 'created_at')->orderByDesc('created_at');
+    return $this->hasMany(Comment::class)->select('id', 'comment', 'user_id', 'post_id', 'created_at')->limit(20)->orderByDesc('created_at');
   }
 
 
