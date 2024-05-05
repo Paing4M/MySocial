@@ -1,6 +1,5 @@
 'use client'
 
-import { CloudUpload } from 'lucide-react'
 import {
 	Dialog,
 	DialogClose,
@@ -9,26 +8,39 @@ import {
 	DialogHeader,
 } from '../ui/dialog'
 import { DialogTitle } from '@radix-ui/react-dialog'
-import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { useState } from 'react'
-import Image from 'next/image'
-import { Textarea } from '../ui/textarea'
-import { updatePost } from '@/services/postService'
-import Error from '../common/Error'
+import { deletePost } from '@/services/postService'
 import { toast } from 'react-toastify'
 
 interface PostDeleteModalInterface {
 	open: boolean
 	setOpen: (open: boolean) => void
+	postId: string
 }
 
-const PostDeleteModal = ({ open, setOpen }: PostDeleteModalInterface) => {
+const PostDeleteModal = ({
+	open,
+	setOpen,
+	postId,
+}: PostDeleteModalInterface) => {
 	const [loading, setLoading] = useState(false)
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		setLoading(true)
+
+		try {
+			const res = await deletePost(postId)
+			if (res.status == 200) {
+				setLoading(false)
+				console.log(res)
+				toast.success(res?.message)
+				setOpen(false)
+			}
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	return (

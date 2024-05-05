@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Events\PostCreateEvent;
+use App\Events\PostDeleteEvent;
 use App\Events\PostUpdateEvent;
 use App\Events\TestEvent;
 use App\Http\Controllers\Controller;
@@ -101,6 +102,18 @@ class PostController extends Controller implements HasMiddleware {
   }
 
   public function destroy(string $id) {
-    //
+    $post = Post::findOrFail($id);
+
+    if (isset($post->image) && Storage::exists($post->image)) {
+      Storage::delete($post->image);
+    }
+    $post->delete();
+
+    broadcast(new PostDeleteEvent($id));
+
+    return response()->json([
+      'status' => 200,
+      'message' => 'Post deleted successfully.'
+    ]);
   }
 }

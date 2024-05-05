@@ -157,6 +157,7 @@ const PostCard = ({ post }: { post: PostType }) => {
 					post={post}
 				/>
 				<PostDeleteModal
+					postId={post.id}
 					open={openDeleteModal}
 					setOpen={setOpenDeleteModal}
 				/>
