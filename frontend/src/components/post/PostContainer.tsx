@@ -19,42 +19,21 @@ const PostContainer = () => {
 	}, [])
 
 	useEffect(() => {
-		laraEcho
-			.channel('post_channel')
-			.listen('PostCreateEvent', (e: any) => {
-				if (e.post) {
-					const post: PostType = e.post
-
-					setPosts((prev) => {
-						if (prev && prev.data) {
-							return {
-								...prev,
-								data: [post, ...prev.data],
-							}
-						}
-						return prev
-					})
-				}
-			})
-			.listen('PostUpdateEvent', (e: any) => {
-				console.log(e)
+		laraEcho.channel('post_channel').listen('PostCreateEvent', (e: any) => {
+			if (e.post) {
 				const post: PostType = e.post
+
 				setPosts((prev) => {
 					if (prev && prev.data) {
-						const updatedData = prev.data.map((prevPost) =>
-							prevPost.id === post.id ? post : prevPost
-						)
-						console.log('up', updatedData)
-
 						return {
 							...prev,
-							data: updatedData,
+							data: [post, ...prev.data],
 						}
 					}
-
 					return prev
 				})
-			})
+			}
+		})
 
 		return () => {
 			laraEcho.leave('post_channel')

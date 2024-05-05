@@ -23,3 +23,8 @@ export const updatePost = async (data: PostInterface) => {
 	const res = await axiosInstance.post('/posts/' + data?.id, data)
 	return res.data
 }
+
+export const deletePost = async (id: string) => {
+	const res = await axiosInstance.delete('/posts/' + id)
+	return res
+}

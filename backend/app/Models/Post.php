@@ -15,6 +15,8 @@ class Post extends Model {
 
   protected $fillable = ['desc', 'image', 'user_id'];
 
+  // protected $appends = ['liked_by_user'];
+
   protected $table = 'posts';
 
   public function user(): BelongsTo {
@@ -32,10 +34,7 @@ class Post extends Model {
 
 
   public function getLikedByUserAttribute() {
-    if (auth('sanctum')->user()) {
-      return $this->likes()->where('user_id',  auth('sanctum')->user()->id)->exists();
-    } else {
-      return false;
-    }
+
+    return $this->likes->contains('user_id', auth('sanctum')->id());
   }
 }

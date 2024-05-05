@@ -21,10 +21,9 @@ import { toast } from 'react-toastify'
 interface PostDeleteModalInterface {
 	open: boolean
 	setOpen: (open: boolean) => void
-	post: PostType
 }
 
-const PostDeleteModal = ({ open, setOpen, post }: PostDeleteModalInterface) => {
+const PostDeleteModal = ({ open, setOpen }: PostDeleteModalInterface) => {
 	const [loading, setLoading] = useState(false)
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -36,11 +35,29 @@ const PostDeleteModal = ({ open, setOpen, post }: PostDeleteModalInterface) => {
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Are you absolutely sure?</DialogTitle>
+					<DialogTitle className='text-xl font-bold'>
+						Are you absolutely sure?
+					</DialogTitle>
 					<DialogDescription>
 						This action cannot be undone. This will permanently delete
-						your account and remove your data from our servers.
+						your post and remove your data from our servers.
 					</DialogDescription>
+
+					<form action='' onSubmit={handleSubmit}>
+						<div className='mt-4 flex items-center justify-between'>
+							<DialogClose asChild>
+								<Button variant={'outline'}>Cancle</Button>
+							</DialogClose>
+
+							<Button
+								disabled={loading}
+								type='submit'
+								variant={'destructive'}
+							>
+								{loading ? 'Processing...' : 'Delete Post'}
+							</Button>
+						</div>
+					</form>
 				</DialogHeader>
 			</DialogContent>
 		</Dialog>

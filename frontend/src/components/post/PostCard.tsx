@@ -18,6 +18,7 @@ import { toast } from 'react-toastify'
 import { addLike } from '@/services/likeService'
 import { laraEcho } from '@/lib/echoConfig'
 import PostEditModal from '../modal/PostEditModal'
+import PostDeleteModal from '../modal/PostDeleteModal'
 
 const PostCard = ({ post }: { post: PostType }) => {
 	const [isTruncated, setIsTruncated] = useState(true)
@@ -51,7 +52,7 @@ const PostCard = ({ post }: { post: PostType }) => {
 				}))
 			}
 		} catch (error: any) {
-			console.log(error)
+			// console.log(error)
 		}
 	}
 
@@ -81,6 +82,16 @@ const PostCard = ({ post }: { post: PostType }) => {
 							: [comment],
 					}))
 				}
+			})
+			.listen('PostUpdateEvent', (e: any) => {
+				// console.log(e)
+				const post: PostType = e.data
+				if (post.id == postState.id)
+					setPostState((prev) => ({
+						...prev,
+						desc: post.desc,
+						image: post.image,
+					}))
 			})
 
 		return () => {
@@ -122,7 +133,10 @@ const PostCard = ({ post }: { post: PostType }) => {
 										<Pencil className='mr-2 h-4 w-4' />
 										<span>Edit</span>
 									</DropdownMenuItem>
-									<DropdownMenuItem className='cursor-pointer'>
+									<DropdownMenuItem
+										onClick={() => setOpenDeleteModal(true)}
+										className='cursor-pointer'
+									>
 										<Trash className='mr-2 h-4 w-4' />
 										<span>Delete</span>
 									</DropdownMenuItem>
@@ -141,6 +155,10 @@ const PostCard = ({ post }: { post: PostType }) => {
 					open={openEditModal}
 					setOpen={setOpenEditModal}
 					post={post}
+				/>
+				<PostDeleteModal
+					open={openDeleteModal}
+					setOpen={setOpenDeleteModal}
 				/>
 			</div>
 

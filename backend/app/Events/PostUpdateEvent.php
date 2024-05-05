@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Post;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -12,12 +13,14 @@ use Illuminate\Queue\SerializesModels;
 
 class PostUpdateEvent implements ShouldBroadcast {
   use Dispatchable, InteractsWithSockets, SerializesModels;
+
   public $post;
+
   /**
    * Create a new event instance.
    */
   public function __construct($post) {
-    $this->post = $post;
+    $this->post = serialize($post);
   }
 
   /**
@@ -26,8 +29,18 @@ class PostUpdateEvent implements ShouldBroadcast {
    * @return array<int, \Illuminate\Broadcasting\Channel>
    */
   public function broadcastOn(): array {
+
     return [
       new Channel('post_channel'),
+    ];
+  }
+
+  public function broadcastWith() {
+    $post = unserialize($this->post);
+
+    \Log::info('this post' . $this->post);
+    return [
+      'data' => $post
     ];
   }
 }

@@ -26,7 +26,7 @@ interface PostEditModalInterface {
 
 const PostEditModal = ({ open, setOpen, post }: PostEditModalInterface) => {
 	const [image, setImage] = useState<File | null>()
-	const [descState, setDescState] = useState('')
+	const [descState, setDescState] = useState(post.desc)
 	const [loading, setLoading] = useState(false)
 	const [errors, setErrors] = useState({
 		image: '',
@@ -37,8 +37,6 @@ const PostEditModal = ({ open, setOpen, post }: PostEditModalInterface) => {
 		const file = e.target.files?.[0]
 		if (file) setImage(file)
 	}
-
-	console.log(image)
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -112,7 +110,7 @@ const PostEditModal = ({ open, setOpen, post }: PostEditModalInterface) => {
 
 							<div>
 								<Textarea
-									defaultValue={descState || post.desc}
+									defaultValue={descState}
 									onChange={(e) => setDescState(e.target.value)}
 								/>
 								<Error err={errors?.desc?.[0]} />

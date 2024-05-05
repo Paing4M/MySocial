@@ -31,7 +31,7 @@ class PostController extends Controller implements HasMiddleware {
       })
       ->withCount('comments')
       ->withCount('likes')
-      ->with(['comments.user:id,name'])
+      ->with(['comments.user:id,name,profile_img,bio'])
       ->orderByDesc('created_at')
       ->paginate(20);
 
@@ -51,6 +51,9 @@ class PostController extends Controller implements HasMiddleware {
     }
 
     $post =  Post::create($payload)->with('user')->orderByDesc('created_at')->first();
+
+
+
     broadcast(new PostCreateEvent($post));
 
     return response()->json([
@@ -67,7 +70,7 @@ class PostController extends Controller implements HasMiddleware {
 
 
   public function update(PostUpdateRequest $request, string $id) {
-    $post = Post::where("id", $id)->with('user')->with('comments')->first();
+    $post =  Post::findOrFail($id);
     $payload = $request->only(['desc', 'image']);
 
     if (isset($payload['image'])) {
@@ -83,7 +86,9 @@ class PostController extends Controller implements HasMiddleware {
     $post->image = $payload['image'] ?? $post->image;
     $post->save();
 
+
     broadcast(new PostUpdateEvent($post));
+
 
     return response()->json([
       'message' => 'Post updated successfully.',

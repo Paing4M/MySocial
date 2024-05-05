@@ -18,6 +18,7 @@ export function sliceDesc(desc: string, isTruncated: boolean): string {
 }
 
 export function formatDate(date: string) {
-	const formattedDate = moment(date).utc().startOf('day').fromNow()
+	const formattedDate = moment(date).fromNow()
+	// const formattedDate = moment(date).format('D-m-y H-m-s')
 	return formattedDate
 }

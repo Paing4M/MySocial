@@ -49,8 +49,3 @@ Route::post('/test', function (Request $request) {
 
 
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
-
-
-// Route::get('test' , function(){
-
-// });
