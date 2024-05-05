@@ -12,8 +12,6 @@ const PostContainer = () => {
 	const [loading, setLoading] = useState(false)
 	const user = useCurrentUser()
 
-	console.log(posts?.data)
-
 	useEffect(() => {
 		getPosts()
 	}, [])

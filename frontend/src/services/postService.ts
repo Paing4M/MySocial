@@ -12,8 +12,13 @@ export const createPost = async (data: PostInterface) => {
 	return res.data
 }
 
-export const getPosts = async () => {
-	const res = await axiosInstance.get('/posts')
+export const getPosts = async (user?: string, searchTerm?: any) => {
+	const params = {
+		searchTerm,
+		user,
+	}
+
+	const res = await axiosInstance.get(`/posts`, { params })
 	return res.data
 }
 

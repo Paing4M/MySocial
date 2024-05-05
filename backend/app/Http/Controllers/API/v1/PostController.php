@@ -26,8 +26,11 @@ class PostController extends Controller implements HasMiddleware {
   public function index(Request $request) {
 
     $posts = Post::query()
-      ->when($request->search, function ($q) use ($request) {
-        $q->where('desc', 'LIKE', '%' . $request->search . '%');
+      ->when($request->searchTerm, function ($q) use ($request) {
+        $q->where('desc', 'LIKE', '%' . $request->searchTerm . '%');
+      })
+      ->when($request->user, function ($q) use ($request) {
+        $q->where('user_id', $request->user);
       })
       ->withCount('comments')
       ->withCount('likes')

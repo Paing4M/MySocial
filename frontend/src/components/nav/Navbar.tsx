@@ -13,9 +13,18 @@ import { useCurrentUser } from '@/hooks/currentUser'
 import { logout } from '@/services/authService'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const Navbar = () => {
 	const user = useCurrentUser()
+	const [search, setSearch] = useState('')
+	const router = useRouter()
+
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault()
+		router.push(`/search?post=${search}`)
+	}
 
 	const handleLogout = async () => {
 		const res = await logout()
@@ -34,16 +43,21 @@ const Navbar = () => {
 						height={50}
 						className='w-12 object-cover'
 						alt='logo'
+						priority={true}
 					/>
 				</Link>
 
-				<div className='hidden md:flex w-[550px] px-4 items-center  border rounded-md'>
-					<Search className='text-muted-foreground' />
-					<input
-						className='w-full outline-none border-none h-[40px] ml-4'
-						placeholder='Search'
-					/>
-				</div>
+				<form action='' onSubmit={handleSubmit} className='hidden md:block'>
+					<div className='flex w-[550px] px-4 items-center  border rounded-md'>
+						<Search className='text-muted-foreground' />
+						<input
+							defaultValue={search}
+							onChange={(e) => setSearch(e.target.value)}
+							className='w-full outline-none border-none h-[40px] ml-4'
+							placeholder='Search'
+						/>
+					</div>
+				</form>
 
 				{user ? (
 					<div className=''>

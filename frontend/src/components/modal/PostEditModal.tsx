@@ -26,7 +26,7 @@ interface PostEditModalInterface {
 
 const PostEditModal = ({ open, setOpen, post }: PostEditModalInterface) => {
 	const [image, setImage] = useState<File | null>()
-	const [descState, setDescState] = useState(post.desc)
+	const [descState, setDescState] = useState(post?.desc)
 	const [loading, setLoading] = useState(false)
 	const [errors, setErrors] = useState({
 		image: '',

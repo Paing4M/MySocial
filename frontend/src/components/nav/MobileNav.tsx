@@ -6,14 +6,18 @@ import { useState } from 'react'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { useActivePath } from '@/hooks/checkActivePath'
+import { useRouter } from 'next/navigation'
 
 const MobileNav = () => {
 	const [open, setOpen] = useState(false)
 	const [searchTerm, setSearchTerm] = useState('')
 	const activePath = useActivePath()
+	const router = useRouter()
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+		router.push(`/search?post=${searchTerm}`)
+		setOpen(false)
 	}
 
 	return (
@@ -25,7 +29,10 @@ const MobileNav = () => {
 							onSubmit={handleSubmit}
 							className='flex w-full  items-center space-x-2'
 						>
-							<Input placeholder='Search' />
+							<Input
+								onChange={(e) => setSearchTerm(e.target.value)}
+								placeholder='Search'
+							/>
 							<Button type='submit'>Search</Button>
 						</form>
 					</div>
