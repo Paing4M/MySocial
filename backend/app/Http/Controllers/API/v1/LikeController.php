@@ -30,6 +30,8 @@ class LikeController extends Controller {
       $postUser = User::find($post->user->id);
 
       $title = $user->name . ' liked your post.';
+
+
       $postUser->notify(new LikeNotification($title, $post, $user));
 
       return response()->json([

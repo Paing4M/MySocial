@@ -10,7 +10,7 @@ class NotiController extends Controller {
   public function __invoke(Request $request) {
 
     $user = $request->user('sanctum');
-    $noti = $user->notifications()->latest()->paginate(10);
+    $noti = $user->notifications()->where('data->user->id', '!=', auth('sanctum')->user()->id)->latest()->paginate(10);
 
     return NotiResource::collection($noti);
   }
