@@ -3,9 +3,12 @@
 import { getPost } from '@/services/postService'
 import { useEffect, useState } from 'react'
 import PostCard from './PostCard'
+import PostLoading from '../skeletonLoading/PostLoading'
 
 const PostDetailBox = ({ id }: { id: string }) => {
 	const [post, setPost] = useState<PostType>()
+
+	console.log(post)
 
 	useEffect(() => {
 		if (!id) return
@@ -19,7 +22,7 @@ const PostDetailBox = ({ id }: { id: string }) => {
 
 	if (!post) return
 
-	console.log(post)
+	// console.log(post)
 	return (
 		<div>
 			<PostCard post={post!} />

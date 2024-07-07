@@ -1,9 +1,15 @@
+'use client'
+
 import { formatDate } from '@/lib/utils'
 import UserAvatar from '../user/UserAvatar'
+import Link from 'next/link'
 
 const NotificationCard = ({ noti }: { noti: NotiType }) => {
 	return (
-		<div className='border-b last-of-type:bottom-0 p-6 first-of-type:pt-0'>
+		<Link
+			href={'/post/' + noti.post_id}
+			className='border-b inline-block w-full last-of-type:bottom-0 p-6 first-of-type:pt-0'
+		>
 			<div className='flex items-start sm:items-center justify-between '>
 				<div className='flex items-start sm:items-center gap-2 flex-col sm:flex-row'>
 					<div className='flex items-center gap-3 sm:gap-2'>
@@ -22,7 +28,7 @@ const NotificationCard = ({ noti }: { noti: NotiType }) => {
 					{formatDate(noti.created_at)}
 				</p>
 			</div>
-		</div>
+		</Link>
 	)
 }
 

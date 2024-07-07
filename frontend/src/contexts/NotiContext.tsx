@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 interface NotiContextInterface {
 	noti: boolean
@@ -13,6 +13,12 @@ export const NotiContextProvider = ({
 	children: React.ReactNode
 }) => {
 	const [noti, setNoti] = useState<boolean>(false)
+
+	useEffect(() => {
+		const audio = new Audio('/noti/noti.mp3')
+
+		if (noti) audio.play()
+	}, [noti])
 
 	return (
 		<NotiContext.Provider value={{ noti, setNoti }}>

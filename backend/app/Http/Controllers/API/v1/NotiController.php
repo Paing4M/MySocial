@@ -12,7 +12,16 @@ class NotiController extends Controller {
     $user = $request->user('sanctum');
     $noti = $user->notifications()->latest()->paginate(10);
 
-    // $c = Comment::where('id', '1')->with('user')->get();
     return NotiResource::collection($noti);
+  }
+
+  public function destory(Request $request) {
+
+    $user = $request->user('sanctum');
+    $user->notifications()->delete();
+    return response()->json([
+      'status' => '200',
+      'message' => 'Notifications deleted successfully.'
+    ]);
   }
 }

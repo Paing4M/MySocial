@@ -15,3 +15,8 @@ export const getNoti = async () => {
 	const res = await axiosInstance.get('/user-noti')
 	return res.data
 }
+
+export const clearNoti = async () => {
+	const res = await axiosInstance.delete('/user-noti-delete')
+	return res.data
+}

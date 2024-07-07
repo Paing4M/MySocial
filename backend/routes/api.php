@@ -40,6 +40,7 @@ Route::prefix('v1')->group(function () {
 
   // noti
   Route::get('/user-noti', NotiController::class)->middleware('auth:sanctum');
+  Route::delete('/user-noti-delete', [NotiController::class, 'destory'])->middleware('auth:sanctum');
 });
 
 Route::post('/test', function (Request $request) {

@@ -1,4 +1,5 @@
 import { Skeleton } from '../ui/skeleton'
+import Loader from './Loader'
 
 const Loading = () => {
 	return (
@@ -20,11 +21,11 @@ const Loading = () => {
 
 const PostLoading = () => {
 	return (
-		<div className='h-[calc(100vh-370px)] md:h-[calc(100vh-300px)]  overflow-hidden overflow-y-hidden'>
+		<Loader>
 			<Loading />
 			<Loading />
 			<Loading />
-		</div>
+		</Loader>
 	)
 }
 

@@ -71,7 +71,9 @@ class PostController extends Controller implements HasMiddleware {
 
   public function show(string $id) {
     try {
-      $post = Post::findOrFail($id);
+      $post = Post::where('id', $id)->withCount('comments')
+        ->withCount('likes')
+        ->with(['comments.user:id,name,profile_img,bio'])->first();
       return new PostResource($post);
     } catch (ModelNotFoundException $e) {
       return response()->json([

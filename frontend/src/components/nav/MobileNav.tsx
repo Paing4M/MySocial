@@ -7,12 +7,14 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { useActivePath } from '@/hooks/checkActivePath'
 import { useRouter } from 'next/navigation'
+import { useNotiContext } from '@/contexts/NotiContext'
 
 const MobileNav = () => {
 	const [open, setOpen] = useState(false)
 	const [searchTerm, setSearchTerm] = useState('')
 	const activePath = useActivePath()
 	const router = useRouter()
+	const { noti } = useNotiContext()
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -66,7 +68,7 @@ const MobileNav = () => {
 							</div>
 						</li>
 
-						{/* <li>
+						<li>
 							<Link
 								href={'/notifications'}
 								className={`px-2 ${
@@ -75,9 +77,14 @@ const MobileNav = () => {
 										: 'text-muted-foreground'
 								}`}
 							>
-								<Bell />
+								<div className='relative'>
+									<Bell />
+									{noti && (
+										<span className='absolute top-[-4px] right-[-1px] h-3 w-3 bg-red-500 rounded-full'></span>
+									)}
+								</div>
 							</Link>
-						</li> */}
+						</li>
 
 						<li>
 							<Link
